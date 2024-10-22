@@ -1,0 +1,405 @@
+<!doctype html><html dir="ltr" lang="pt"><head><script async src="https://www.sydle.com/api/1/main/_ecm/_defaultFile/www/sydle-ui/es-module-shims.js/"></script>
+<script type="importmap-shim">
+{
+	"imports": {
+		"@sydle/ui-api": "https://www.sydle.com/blog/ui-package/ui-api@1.13.5/index-e6de0e31898e48ed32f9cc0fe784f186.js",
+		"@sydle/sydle-ui": "https://www.sydle.com/blog/ui-package/sydle-ui@1.1.3/build/index.esm-c65948fd366e8e15bf9cb32b305a9456.js",
+		"@sydle/ui-app-components": "https://www.sydle.com/blog/ui-package/ui-app-components@1.10.0/build/index.esm-87880c332f5cb2ee38e755f5fc459d9e.js"
+	}
+}
+</script>
+ <link rel="alternate" type="application/rss+xml" href="https://www.sydle.com/br/blog/feed/" /><script> 
+    /* trackingUtm function */ 
+    (() => { 
+            let searchParams = new URL(window.location.href).searchParams; 
+            if (!Array.from(searchParams.keys()).find(key => key.match(/^(utm_|gclid|fbclid)/))) { 
+              return; 
+            } 
+            const newTrackingData = { 
+              medium: searchParams.has('utm_medium') ? decodeURI(searchParams.get('utm_medium')) : '', 
+              source: searchParams.has('utm_source') ? decodeURI(searchParams.get('utm_source')) : '', 
+              name: searchParams.has('utm_campaign') ? decodeURI(searchParams.get('utm_campaign')) : '', 
+              term: searchParams.has('utm_term') ? decodeURI(searchParams.get('utm_term')) : '', 
+              content: searchParams.has('utm_content') ? decodeURI(searchParams.get('utm_content')) : '', 
+              gclid: searchParams.has('gclid') ? decodeURI(searchParams.get('gclid')) : '', 
+              fbclid: searchParams.has('fbclid') ? decodeURI(searchParams.get('fbclid')) : '', 
+              date: new Date(), 
+            }; 
+            let trackingUtm;
+            try { 
+              trackingUtm = JSON.parse(localStorage.getItem('tracking_utm')); 
+            } catch (e) { 
+              trackingUtm = []; 
+            }; 
+            if (!trackingUtm) { 
+              trackingUtm = [newTrackingData]; 
+            } else { 
+              if (Array.isArray(trackingUtm)) { 
+                trackingUtm.push(newTrackingData); 
+              } else { 
+                trackingUtm = [trackingUtm, newTrackingData]; 
+              } 
+            } 
+            window.localStorage['tracking_utm'] = JSON.stringify(trackingUtm); 
+    })(); 
+</script> 
+<script> 
+       function setupAndLoadTrackingFile(d, s, c) { 
+           var f = d.getElementsByTagName(s)[0], 
+               j = d.createElement(s); j.async = true; j.src = 
+                 c.baseURL + "/api/1/" + c.app + "/_classId/61113d14c0b1d23a91bfe176/getFile/" + c.eventApi + "?_body=" + encodeURIComponent(JSON.stringify(c)); 
+           f.parentNode.insertBefore(j, f); 
+       } 
+    
+       function stag() { window.syDataLayer.push(arguments) } 
+    
+       { 
+           var config = { 
+               baseURL: "https://www.sydle.com", 
+               app: "main", 
+               eventApi: "650100222b5c70515b4784ec", 
+               language: "pt-BR", 
+               accessTokenPath: "explorer_user_map.site-sydle.users.0.accessToken.token", 
+           }; 
+  
+           window.syDataLayer = window.syDataLayer || []; 
+  
+           stag("config", config); 
+  
+           setupAndLoadTrackingFile(document, "script", config); 
+       } 
+ </script> 
+ <!--head-start/--> <base href="https://www.sydle.com/br/blog/" /> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"> <title>Clean code: quais são as boas práticas de programação? | Blog SYDLE</title> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link async rel="preload" href="https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-mu0SC55I.woff2" as="font" type="font/woff2" crossorigin><style>/* cyrillic-ext */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 300; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSKmu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; 
+}
+/* cyrillic */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 300; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSumu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; 
+}
+/* greek-ext */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 300; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSOmu0SC55K5gw.woff2) format('woff2'); unicode-range: U+1F00-1FFF; 
+}
+/* greek */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 300; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSymu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF; 
+}
+/* hebrew */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 300; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS2mu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; 
+}
+/* math */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 300; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTVOmu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0302-0303, U+0305, U+0307-0308, U+0330, U+0391-03A1, U+03A3-03A9, U+03B1-03C9, U+03D1, 
+U+03D5-03D6, U+03F0-03F1, U+03F4-03F5, U+2034-2037, U+2057, U+20D0-20DC, U+20E1, U+20E5-20EF, U+2102, U+210A-210E, U+2110-2112, U+2115, U+2119-211D, U+2124, U+2128, U+212C-212D, U+212F-2131, U+2133-2138, U+213C-2140, U+2145-2149, U+2190, U+2192, U+2194-21AE, U+21B0-21E5, U+21F1-21F2, U+21F4-2211, U+2213-2214, U+2216-22FF, U+2308-230B, U+2310, U+2319, U+231C-2321, U+2336-237A, U+237C, U+2395, U+239B-23B6, U+23D0, U+23DC-23E1, U+2474-2475, U+25AF, U+25B3, U+25B7, U+25BD, U+25C1, U+25CA, U+25CC, U+25FB, U+266D-266F, U+27C0-27FF, U+2900-2AFF, U+2B0E-2B11, U+2B30-2B4C, U+2BFE, U+FF5B, U+FF5D, U+1D400-1D7FF, U+1EE00-1EEFF; }
+/* symbols */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 300; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTUGmu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0001-000C, U+000E-001F, U+007F-009F, U+20DD-20E0, U+20E2-20E4, U+2150-218F, U+2190, U+2192, 
+U+2194-2199, U+21AF, U+21E6-21F0, U+21F3, U+2218-2219, U+2299, U+22C4-22C6, U+2300-243F, U+2440-244A, U+2460-24FF, U+25A0-27BF, U+2800-28FF, U+2921-2922, U+2981, U+29BF, U+29EB, U+2B00-2BFF, U+4DC0-4DFF, U+FFF9-FFFB, U+10140-1018E, U+10190-1019C, U+101A0, U+101D0-101FD, U+102E0-102FB, U+10E60-10E7E, U+1D2C0-1D2D3, U+1D2E0-1D37F, U+1F000-1F0FF, U+1F100-1F1AD, U+1F1E6-1F1FF, U+1F30D-1F30F, U+1F315, U+1F31C, U+1F31E, U+1F320-1F32C, U+1F336, U+1F378, U+1F37D, U+1F382, U+1F393-1F39F, U+1F3A7-1F3A8, U+1F3AC-1F3AF, U+1F3C2, U+1F3C4-1F3C6, U+1F3CA-1F3CE, U+1F3D4-1F3E0, U+1F3ED, U+1F3F1-1F3F3, U+1F3F5-1F3F7, U+1F408, U+1F415, U+1F41F, U+1F426, U+1F43F, U+1F441-1F442, U+1F444, U+1F446-1F449, U+1F44C-1F44E, U+1F453, U+1F46A, U+1F47D, U+1F4A3, U+1F4B0, U+1F4B3, U+1F4B9, U+1F4BB, U+1F4BF, U+1F4C8-1F4CB, U+1F4D6, U+1F4DA, U+1F4DF, U+1F4E3-1F4E6, U+1F4EA-1F4ED, U+1F4F7, U+1F4F9-1F4FB, U+1F4FD-1F4FE, U+1F503, U+1F507-1F50B, U+1F50D, U+1F512-1F513, U+1F53E-1F54A, U+1F54F-1F5FA, U+1F610, U+1F650-1F67F, U+1F687, U+1F68D, U+1F691, U+1F694, U+1F698, U+1F6AD, U+1F6B2, U+1F6B9-1F6BA, U+1F6BC, U+1F6C6-1F6CF, U+1F6D3-1F6D7, U+1F6E0-1F6EA, U+1F6F0-1F6F3, U+1F6F7-1F6FC, U+1F700-1F7FF, U+1F800-1F80B, U+1F810-1F847, U+1F850-1F859, U+1F860-1F887, U+1F890-1F8AD, U+1F8B0-1F8B1, U+1F900-1F90B, U+1F93B, U+1F946, U+1F984, U+1F996, U+1F9E9, U+1FA00-1FA6F, U+1FA70-1FA7C, U+1FA80-1FA88, U+1FA90-1FABD, U+1FABF-1FAC5, U+1FACE-1FADB, U+1FAE0-1FAE8, U+1FAF0-1FAF8, U+1FB00-1FBFF; }
+/* vietnamese */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 300; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSCmu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, 
+U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+/* latin-ext */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 300; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSGmu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, 
+U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* latin */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 300; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-mu0SC55I.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, 
+U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+/* cyrillic-ext */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 400; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSKmu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; 
+}
+/* cyrillic */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 400; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSumu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; 
+}
+/* greek-ext */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 400; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSOmu0SC55K5gw.woff2) format('woff2'); unicode-range: U+1F00-1FFF; 
+}
+/* greek */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 400; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSymu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF; 
+}
+/* hebrew */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 400; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS2mu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; 
+}
+/* math */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 400; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTVOmu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0302-0303, U+0305, U+0307-0308, U+0330, U+0391-03A1, U+03A3-03A9, U+03B1-03C9, U+03D1, 
+U+03D5-03D6, U+03F0-03F1, U+03F4-03F5, U+2034-2037, U+2057, U+20D0-20DC, U+20E1, U+20E5-20EF, U+2102, U+210A-210E, U+2110-2112, U+2115, U+2119-211D, U+2124, U+2128, U+212C-212D, U+212F-2131, U+2133-2138, U+213C-2140, U+2145-2149, U+2190, U+2192, U+2194-21AE, U+21B0-21E5, U+21F1-21F2, U+21F4-2211, U+2213-2214, U+2216-22FF, U+2308-230B, U+2310, U+2319, U+231C-2321, U+2336-237A, U+237C, U+2395, U+239B-23B6, U+23D0, U+23DC-23E1, U+2474-2475, U+25AF, U+25B3, U+25B7, U+25BD, U+25C1, U+25CA, U+25CC, U+25FB, U+266D-266F, U+27C0-27FF, U+2900-2AFF, U+2B0E-2B11, U+2B30-2B4C, U+2BFE, U+FF5B, U+FF5D, U+1D400-1D7FF, U+1EE00-1EEFF; }
+/* symbols */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 400; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTUGmu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0001-000C, U+000E-001F, U+007F-009F, U+20DD-20E0, U+20E2-20E4, U+2150-218F, U+2190, U+2192, 
+U+2194-2199, U+21AF, U+21E6-21F0, U+21F3, U+2218-2219, U+2299, U+22C4-22C6, U+2300-243F, U+2440-244A, U+2460-24FF, U+25A0-27BF, U+2800-28FF, U+2921-2922, U+2981, U+29BF, U+29EB, U+2B00-2BFF, U+4DC0-4DFF, U+FFF9-FFFB, U+10140-1018E, U+10190-1019C, U+101A0, U+101D0-101FD, U+102E0-102FB, U+10E60-10E7E, U+1D2C0-1D2D3, U+1D2E0-1D37F, U+1F000-1F0FF, U+1F100-1F1AD, U+1F1E6-1F1FF, U+1F30D-1F30F, U+1F315, U+1F31C, U+1F31E, U+1F320-1F32C, U+1F336, U+1F378, U+1F37D, U+1F382, U+1F393-1F39F, U+1F3A7-1F3A8, U+1F3AC-1F3AF, U+1F3C2, U+1F3C4-1F3C6, U+1F3CA-1F3CE, U+1F3D4-1F3E0, U+1F3ED, U+1F3F1-1F3F3, U+1F3F5-1F3F7, U+1F408, U+1F415, U+1F41F, U+1F426, U+1F43F, U+1F441-1F442, U+1F444, U+1F446-1F449, U+1F44C-1F44E, U+1F453, U+1F46A, U+1F47D, U+1F4A3, U+1F4B0, U+1F4B3, U+1F4B9, U+1F4BB, U+1F4BF, U+1F4C8-1F4CB, U+1F4D6, U+1F4DA, U+1F4DF, U+1F4E3-1F4E6, U+1F4EA-1F4ED, U+1F4F7, U+1F4F9-1F4FB, U+1F4FD-1F4FE, U+1F503, U+1F507-1F50B, U+1F50D, U+1F512-1F513, U+1F53E-1F54A, U+1F54F-1F5FA, U+1F610, U+1F650-1F67F, U+1F687, U+1F68D, U+1F691, U+1F694, U+1F698, U+1F6AD, U+1F6B2, U+1F6B9-1F6BA, U+1F6BC, U+1F6C6-1F6CF, U+1F6D3-1F6D7, U+1F6E0-1F6EA, U+1F6F0-1F6F3, U+1F6F7-1F6FC, U+1F700-1F7FF, U+1F800-1F80B, U+1F810-1F847, U+1F850-1F859, U+1F860-1F887, U+1F890-1F8AD, U+1F8B0-1F8B1, U+1F900-1F90B, U+1F93B, U+1F946, U+1F984, U+1F996, U+1F9E9, U+1FA00-1FA6F, U+1FA70-1FA7C, U+1FA80-1FA88, U+1FA90-1FABD, U+1FABF-1FAC5, U+1FACE-1FADB, U+1FAE0-1FAE8, U+1FAF0-1FAF8, U+1FB00-1FBFF; }
+/* vietnamese */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 400; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSCmu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, 
+U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+/* latin-ext */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 400; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSGmu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, 
+U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* latin */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 400; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-mu0SC55I.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, 
+U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+/* cyrillic-ext */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 700; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSKmu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; 
+}
+/* cyrillic */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 700; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSumu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; 
+}
+/* greek-ext */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 700; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSOmu0SC55K5gw.woff2) format('woff2'); unicode-range: U+1F00-1FFF; 
+}
+/* greek */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 700; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSymu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF; 
+}
+/* hebrew */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 700; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS2mu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; 
+}
+/* math */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 700; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTVOmu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0302-0303, U+0305, U+0307-0308, U+0330, U+0391-03A1, U+03A3-03A9, U+03B1-03C9, U+03D1, 
+U+03D5-03D6, U+03F0-03F1, U+03F4-03F5, U+2034-2037, U+2057, U+20D0-20DC, U+20E1, U+20E5-20EF, U+2102, U+210A-210E, U+2110-2112, U+2115, U+2119-211D, U+2124, U+2128, U+212C-212D, U+212F-2131, U+2133-2138, U+213C-2140, U+2145-2149, U+2190, U+2192, U+2194-21AE, U+21B0-21E5, U+21F1-21F2, U+21F4-2211, U+2213-2214, U+2216-22FF, U+2308-230B, U+2310, U+2319, U+231C-2321, U+2336-237A, U+237C, U+2395, U+239B-23B6, U+23D0, U+23DC-23E1, U+2474-2475, U+25AF, U+25B3, U+25B7, U+25BD, U+25C1, U+25CA, U+25CC, U+25FB, U+266D-266F, U+27C0-27FF, U+2900-2AFF, U+2B0E-2B11, U+2B30-2B4C, U+2BFE, U+FF5B, U+FF5D, U+1D400-1D7FF, U+1EE00-1EEFF; }
+/* symbols */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 700; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTUGmu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0001-000C, U+000E-001F, U+007F-009F, U+20DD-20E0, U+20E2-20E4, U+2150-218F, U+2190, U+2192, 
+U+2194-2199, U+21AF, U+21E6-21F0, U+21F3, U+2218-2219, U+2299, U+22C4-22C6, U+2300-243F, U+2440-244A, U+2460-24FF, U+25A0-27BF, U+2800-28FF, U+2921-2922, U+2981, U+29BF, U+29EB, U+2B00-2BFF, U+4DC0-4DFF, U+FFF9-FFFB, U+10140-1018E, U+10190-1019C, U+101A0, U+101D0-101FD, U+102E0-102FB, U+10E60-10E7E, U+1D2C0-1D2D3, U+1D2E0-1D37F, U+1F000-1F0FF, U+1F100-1F1AD, U+1F1E6-1F1FF, U+1F30D-1F30F, U+1F315, U+1F31C, U+1F31E, U+1F320-1F32C, U+1F336, U+1F378, U+1F37D, U+1F382, U+1F393-1F39F, U+1F3A7-1F3A8, U+1F3AC-1F3AF, U+1F3C2, U+1F3C4-1F3C6, U+1F3CA-1F3CE, U+1F3D4-1F3E0, U+1F3ED, U+1F3F1-1F3F3, U+1F3F5-1F3F7, U+1F408, U+1F415, U+1F41F, U+1F426, U+1F43F, U+1F441-1F442, U+1F444, U+1F446-1F449, U+1F44C-1F44E, U+1F453, U+1F46A, U+1F47D, U+1F4A3, U+1F4B0, U+1F4B3, U+1F4B9, U+1F4BB, U+1F4BF, U+1F4C8-1F4CB, U+1F4D6, U+1F4DA, U+1F4DF, U+1F4E3-1F4E6, U+1F4EA-1F4ED, U+1F4F7, U+1F4F9-1F4FB, U+1F4FD-1F4FE, U+1F503, U+1F507-1F50B, U+1F50D, U+1F512-1F513, U+1F53E-1F54A, U+1F54F-1F5FA, U+1F610, U+1F650-1F67F, U+1F687, U+1F68D, U+1F691, U+1F694, U+1F698, U+1F6AD, U+1F6B2, U+1F6B9-1F6BA, U+1F6BC, U+1F6C6-1F6CF, U+1F6D3-1F6D7, U+1F6E0-1F6EA, U+1F6F0-1F6F3, U+1F6F7-1F6FC, U+1F700-1F7FF, U+1F800-1F80B, U+1F810-1F847, U+1F850-1F859, U+1F860-1F887, U+1F890-1F8AD, U+1F8B0-1F8B1, U+1F900-1F90B, U+1F93B, U+1F946, U+1F984, U+1F996, U+1F9E9, U+1FA00-1FA6F, U+1FA70-1FA7C, U+1FA80-1FA88, U+1FA90-1FABD, U+1FABF-1FAC5, U+1FACE-1FADB, U+1FAE0-1FAE8, U+1FAF0-1FAF8, U+1FB00-1FBFF; }
+/* vietnamese */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 700; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSCmu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, 
+U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+/* latin-ext */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 700; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSGmu0SC55K5gw.woff2) format('woff2'); unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, 
+U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* latin */
+@font-face { 
+font-family: 'Open Sans'; 
+font-style: normal; 
+font-weight: 700; 
+font-stretch: 100%; 
+font-display: swap; 
+src: url(https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-mu0SC55I.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, 
+U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+</style> <!--icons--> <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,300,0,0&amp;display=block" rel="stylesheet"> <!--/icons--> <!-- Google Tag Manager --><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WKR2TM');</script><!-- End Google Tag Manager --> 
+<script type="module-shim" src="translate-20485014e9f795b05e8aa23662e19ed4-eu0b.js"></script>
+
+<script>
+	if (!window.sydleApp) window.sydleApp = {};
+	window.sydleApp.config = {
+		'ui-app': {"routes":[{"dynamicTitle":true,"path":"/search","children":null,"name":"search","title__i18n":null,"_id":"64dcd81867f8e20bc298fd24","authGuard":false,"title":null,"titleTemplate":null},{"dynamicTitle":true,"path":"/c/:categoryIdentifier{-:categoryId([a-f0-9-]{24})}?","children":null,"name":"category","title__i18n":null,"_id":"652d50f202a91c3a517ce42d","authGuard":false,"title":null,"titleTemplate":"{{string}} | "},{"dynamicTitle":true,"path":"/t/:tagIdentifier{-:tagId([a-f0-9-]{24})}?","children":null,"name":"tag","title__i18n":null,"_id":"64dcd80d07bf1b42628d07e7","authGuard":false,"title":null,"titleTemplate":"{{string}} | "},{"dynamicTitle":true,"path":"/draft/:post-:draftId([a-f0-9-]{24})?","children":null,"name":"draft","title__i18n":null,"_id":"651b22caf8955c2bef75f817","authGuard":false,"title":null,"titleTemplate":"{{string}} | "},{"dynamicTitle":true,"path":"/:postIdentifier{-:postId([a-f0-9-]{24})}?","children":null,"name":"post","title__i18n":null,"_id":"651c54cef8955c2befc380b8","authGuard":false,"title":null,"titleTemplate":"{{string}} | "},{"dynamicTitle":true,"path":"/","children":null,"name":"home","title__i18n":null,"_id":"64dcd86b07bf1b4262945fc6","authGuard":false,"title":null,"titleTemplate":null},{"path":"(.*)","component":"sy-app-custom-page","name":"404"}],"titleSufix__i18n":{"pt":"Blog SYDLE"},"_classId":"645be3fb34d9110770e73fd8","APPLICATION_IDENTIFIER":"blog-sydle-blogmigration","availableLanguages":["pt","es","en"],"titleSufix":"Blog SYDLE","redirectRoute":null,"authRoute":null,"_id":"656dd8d2b548ad5bcc0974ad","customTokens":{},"applicationHash":"20485014e9f795b05e8aa23662e19ed4-fdry"},
+		'ui-api': {"BASE_API_URL":"https://www.sydle.com/api/1/","APPLICATION_IDENTIFIER":"site-sydle","ORGANIZATION_IDENTIFIER":"sydle"},
+		'sydle-ui': {"_classId":"64920fd45e98140db55047d7","primaryColor":"#000000ff","_id":"64920fd55e98140db550570f","secondaryColor":"#2069c7ff"},
+		'sydle-ui-blog': {"enableNewsletter":true,"consentListsByLanguage":[{"identifier":"Receber notícias - pt","_creationUser":{"_id":"5b2a92e062edb9251f3d8f8e","_classId":"000000000000000000000002"},"_revision":"2df5178336284b3318c7a8274066c3aa","_publishedObject":null,"_lastUpdateDate":"2023-06-07T03:48:50.849Z","_protected":false,"_lastUpdateUser":{"_id":"5b2a92e062edb9251f3d8f8e","_classId":"000000000000000000000002"},"_classRevision":"bb3d22341053375a9d6a0b9b3faf0b03","_class":{"_id":"628788e38e8bd1396d3a3e76","_classId":"000000000000000000000000"},"_id":"64131b54bcbbce2cf606bcc4","_creationDate":"2023-06-07T03:48:50.849Z"}],"allowedImagesExtensions":null,"_classId":"64d6ace407bf1b4262bb4f1d","enterprise":{"_classId":"591365fef5ca53284cd8d159","_id":"5af1f92a62edb903d997a7ec"},"useIdOnUrls":true,"description":"Impulsione a sua transformação digital através de uma ferramenta única que reúne soluções de BPM, CRM, E-commerce, Billing, Service Desk e mais. ","useSlashAtEndOfUrls":false,"description__i18n":{"pt":"Impulsione a sua transformação digital através de uma ferramenta única que reúne soluções de BPM, CRM, E-commerce, Billing, Service Desk e mais. ","en":"Boost your digital transformation through a unique tool that brings together solutions from BPM, CRM, E-commerce, Billing, Service Desk and more.","es":"Impulse su transformación digital a través de una herramienta única que reúne soluciones de BPM, CRM, comercio electrónico, Billing, Service Desk y más"},"individualSubscribe":false,"presentation":null,"crmTrackingEventsApi":{"_classId":"61113d14c0b1d23a91bfe176","_id":"650100222b5c70515b4784ec"},"imageMaxSize":null,"configByLanguage":[{"country":{"_classId":"000000000000000000000040","_id":"590b71c2f5ca53091c89ea4e"},"defaultLanguage":false,"hreflang":"pt-BR","_classId":"64e79808f3741713ac801ca5","language":{"code":"pt","_classId":"5defc672a814aa53766a8cca","name":"Português","_id":"5defc679a814aa53766a8d4f"},"_id":"656dd8d2b548ad5bcc09907c","urlPath":"br"},{"country":null,"defaultLanguage":false,"hreflang":"es","_classId":"64e79808f3741713ac801ca5","language":{"code":"es","_classId":"5defc672a814aa53766a8cca","name":"Español","_id":"5defc679a814aa53766aeeef"},"_id":"656dd8d2b548ad5bcc09907d","urlPath":"es"},{"country":null,"defaultLanguage":true,"hreflang":"en","_classId":"64e79808f3741713ac801ca5","language":{"code":"en","_classId":"5defc672a814aa53766a8cca","name":"English","_id":"5defc679a814aa53766aeeee"},"_id":"656dd8d2b548ad5bcc09907e","urlPath":null}],"shareCardImage":{"pendingContentExtraction":false,"name":"og-image-wide.png","contentText":null,"length":2995,"_id":"60c22882688db6117f2573d5","contentType":"image/png","hash":"607487155a4f1b07ba4f40d89a77da06"},"name":"Blog SYDLE","_id":"64d6acf63370214419f3914c","trackingParamsConfigs_utmTags":[{"_classId":"648875a3ec7a9103bedb4187","utmTags":[{"_classId":"6377b4a32c5de00b1c4bd916","_id":"64946917aabaad5335ef1a8c","value":"{{title}}","key":"utm_source"},{"_classId":"6377b4a32c5de00b1c4bd916","_id":"64946917aabaad5335ef1a8d","value":"organic","key":"utm_medium"},{"_classId":"6377b4a32c5de00b1c4bd916","_id":"64946917aabaad5335ef1a90","value":"home","key":"utm_content"},{"_classId":"6377b4a32c5de00b1c4bd916","_id":"65240cad3715666b16e6bc01","value":"Blog SYDLE","key":"utm_campaign"}],"_id":"64946917aabaad5335ef1a59","pageTypes":["home"]},{"_classId":"648875a3ec7a9103bedb4187","utmTags":[{"_classId":"6377b4a32c5de00b1c4bd916","_id":"64946921d3d03471c8f202d0","value":"{{title}}","key":"utm_source"},{"_classId":"6377b4a32c5de00b1c4bd916","_id":"64946921d3d03471c8f202d1","value":"organic","key":"utm_medium"},{"_classId":"6377b4a32c5de00b1c4bd916","_id":"64946921d3d03471c8f202d3","value":"search","key":"utm_content"},{"_classId":"6377b4a32c5de00b1c4bd916","_id":"65240cc3a7e8085cd2dd9230","value":"Blog SYDLE","key":"utm_campaign"}],"_id":"64946921d3d03471c8f2029e","pageTypes":["search"]},{"_classId":"648875a3ec7a9103bedb4187","utmTags":[{"_classId":"6377b4a32c5de00b1c4bd916","_id":"64946963d3d03471c8f50955","value":"{{title}}","key":"utm_source"},{"_classId":"6377b4a32c5de00b1c4bd916","_id":"64946963d3d03471c8f50956","value":"organic","key":"utm_medium"},{"_classId":"6377b4a32c5de00b1c4bd916","_id":"64946963d3d03471c8f50959","value":"{{identifier}}","key":"utm_content"},{"_classId":"65566a7f3dc05971c96c07a7","_id":"6696735c97ad1926e748d9b2","value":"Blog SYDLE","key":"utm_campaign"}],"_id":"64946963d3d03471c8f50920","pageTypes":["category","post","tag"]}]},
+	}
+</script>
+
+<script>
+	if (!window.SYDLE) window.SYDLE = {};
+	window.SYDLE.config = {
+		'ui-app': {"routes":[{"dynamicTitle":true,"path":"/search","children":null,"name":"search","title__i18n":null,"_id":"64dcd81867f8e20bc298fd24","authGuard":false,"title":null,"titleTemplate":null},{"dynamicTitle":true,"path":"/c/:categoryIdentifier{-:categoryId([a-f0-9-]{24})}?","children":null,"name":"category","title__i18n":null,"_id":"652d50f202a91c3a517ce42d","authGuard":false,"title":null,"titleTemplate":"{{string}} | "},{"dynamicTitle":true,"path":"/t/:tagIdentifier{-:tagId([a-f0-9-]{24})}?","children":null,"name":"tag","title__i18n":null,"_id":"64dcd80d07bf1b42628d07e7","authGuard":false,"title":null,"titleTemplate":"{{string}} | "},{"dynamicTitle":true,"path":"/draft/:post-:draftId([a-f0-9-]{24})?","children":null,"name":"draft","title__i18n":null,"_id":"651b22caf8955c2bef75f817","authGuard":false,"title":null,"titleTemplate":"{{string}} | "},{"dynamicTitle":true,"path":"/:postIdentifier{-:postId([a-f0-9-]{24})}?","children":null,"name":"post","title__i18n":null,"_id":"651c54cef8955c2befc380b8","authGuard":false,"title":null,"titleTemplate":"{{string}} | "},{"dynamicTitle":true,"path":"/","children":null,"name":"home","title__i18n":null,"_id":"64dcd86b07bf1b4262945fc6","authGuard":false,"title":null,"titleTemplate":null},{"path":"(.*)","component":"sy-app-custom-page","name":"404"}],"titleSufix__i18n":{"pt":"Blog SYDLE"},"_classId":"645be3fb34d9110770e73fd8","APPLICATION_IDENTIFIER":"blog-sydle-blogmigration","availableLanguages":["pt","es","en"],"titleSufix":"Blog SYDLE","redirectRoute":null,"authRoute":null,"_id":"656dd8d2b548ad5bcc0974ad","customTokens":{},"applicationHash":"20485014e9f795b05e8aa23662e19ed4-fdry"},
+		'ui-api': {"BASE_API_URL":"https://www.sydle.com/api/1/","APPLICATION_IDENTIFIER":"site-sydle","ORGANIZATION_IDENTIFIER":"sydle"},
+		'sydle-ui': {"_classId":"64920fd45e98140db55047d7","primaryColor":"#000000ff","_id":"64920fd55e98140db550570f","secondaryColor":"#2069c7ff"},
+		'sydle-ui-blog': {"enableNewsletter":true,"consentListsByLanguage":[{"identifier":"Receber notícias - pt","_creationUser":{"_id":"5b2a92e062edb9251f3d8f8e","_classId":"000000000000000000000002"},"_revision":"2df5178336284b3318c7a8274066c3aa","_publishedObject":null,"_lastUpdateDate":"2023-06-07T03:48:50.849Z","_protected":false,"_lastUpdateUser":{"_id":"5b2a92e062edb9251f3d8f8e","_classId":"000000000000000000000002"},"_classRevision":"bb3d22341053375a9d6a0b9b3faf0b03","_class":{"_id":"628788e38e8bd1396d3a3e76","_classId":"000000000000000000000000"},"_id":"64131b54bcbbce2cf606bcc4","_creationDate":"2023-06-07T03:48:50.849Z"}],"allowedImagesExtensions":null,"_classId":"64d6ace407bf1b4262bb4f1d","enterprise":{"_classId":"591365fef5ca53284cd8d159","_id":"5af1f92a62edb903d997a7ec"},"useIdOnUrls":true,"description":"Impulsione a sua transformação digital através de uma ferramenta única que reúne soluções de BPM, CRM, E-commerce, Billing, Service Desk e mais. ","useSlashAtEndOfUrls":false,"description__i18n":{"pt":"Impulsione a sua transformação digital através de uma ferramenta única que reúne soluções de BPM, CRM, E-commerce, Billing, Service Desk e mais. ","en":"Boost your digital transformation through a unique tool that brings together solutions from BPM, CRM, E-commerce, Billing, Service Desk and more.","es":"Impulse su transformación digital a través de una herramienta única que reúne soluciones de BPM, CRM, comercio electrónico, Billing, Service Desk y más"},"individualSubscribe":false,"presentation":null,"crmTrackingEventsApi":{"_classId":"61113d14c0b1d23a91bfe176","_id":"650100222b5c70515b4784ec"},"imageMaxSize":null,"configByLanguage":[{"country":{"_classId":"000000000000000000000040","_id":"590b71c2f5ca53091c89ea4e"},"defaultLanguage":false,"hreflang":"pt-BR","_classId":"64e79808f3741713ac801ca5","language":{"code":"pt","_classId":"5defc672a814aa53766a8cca","name":"Português","_id":"5defc679a814aa53766a8d4f"},"_id":"656dd8d2b548ad5bcc09907c","urlPath":"br"},{"country":null,"defaultLanguage":false,"hreflang":"es","_classId":"64e79808f3741713ac801ca5","language":{"code":"es","_classId":"5defc672a814aa53766a8cca","name":"Español","_id":"5defc679a814aa53766aeeef"},"_id":"656dd8d2b548ad5bcc09907d","urlPath":"es"},{"country":null,"defaultLanguage":true,"hreflang":"en","_classId":"64e79808f3741713ac801ca5","language":{"code":"en","_classId":"5defc672a814aa53766a8cca","name":"English","_id":"5defc679a814aa53766aeeee"},"_id":"656dd8d2b548ad5bcc09907e","urlPath":null}],"shareCardImage":{"pendingContentExtraction":false,"name":"og-image-wide.png","contentText":null,"length":2995,"_id":"60c22882688db6117f2573d5","contentType":"image/png","hash":"607487155a4f1b07ba4f40d89a77da06"},"name":"Blog SYDLE","_id":"64d6acf63370214419f3914c","trackingParamsConfigs_utmTags":[{"_classId":"648875a3ec7a9103bedb4187","utmTags":[{"_classId":"6377b4a32c5de00b1c4bd916","_id":"64946917aabaad5335ef1a8c","value":"{{title}}","key":"utm_source"},{"_classId":"6377b4a32c5de00b1c4bd916","_id":"64946917aabaad5335ef1a8d","value":"organic","key":"utm_medium"},{"_classId":"6377b4a32c5de00b1c4bd916","_id":"64946917aabaad5335ef1a90","value":"home","key":"utm_content"},{"_classId":"6377b4a32c5de00b1c4bd916","_id":"65240cad3715666b16e6bc01","value":"Blog SYDLE","key":"utm_campaign"}],"_id":"64946917aabaad5335ef1a59","pageTypes":["home"]},{"_classId":"648875a3ec7a9103bedb4187","utmTags":[{"_classId":"6377b4a32c5de00b1c4bd916","_id":"64946921d3d03471c8f202d0","value":"{{title}}","key":"utm_source"},{"_classId":"6377b4a32c5de00b1c4bd916","_id":"64946921d3d03471c8f202d1","value":"organic","key":"utm_medium"},{"_classId":"6377b4a32c5de00b1c4bd916","_id":"64946921d3d03471c8f202d3","value":"search","key":"utm_content"},{"_classId":"6377b4a32c5de00b1c4bd916","_id":"65240cc3a7e8085cd2dd9230","value":"Blog SYDLE","key":"utm_campaign"}],"_id":"64946921d3d03471c8f2029e","pageTypes":["search"]},{"_classId":"648875a3ec7a9103bedb4187","utmTags":[{"_classId":"6377b4a32c5de00b1c4bd916","_id":"64946963d3d03471c8f50955","value":"{{title}}","key":"utm_source"},{"_classId":"6377b4a32c5de00b1c4bd916","_id":"64946963d3d03471c8f50956","value":"organic","key":"utm_medium"},{"_classId":"6377b4a32c5de00b1c4bd916","_id":"64946963d3d03471c8f50959","value":"{{identifier}}","key":"utm_content"},{"_classId":"65566a7f3dc05971c96c07a7","_id":"6696735c97ad1926e748d9b2","value":"Blog SYDLE","key":"utm_campaign"}],"_id":"64946963d3d03471c8f50920","pageTypes":["category","post","tag"]}]},
+	}
+</script>
+
+<script>
+	if (!window.SYDLE) window.SYDLE = {};
+	window.SYDLE.app = {
+		'identifier': "blog-sydle-blogmigration",
+		'hash': "20485014e9f795b05e8aa23662e19ed4-eu0b",
+		'availableLanguages': ["pt","es","en"],
+		'name': "Blog SYDLE",
+		'name__i18n': {"pt":"Blog SYDLE"},
+	}
+</script>
+<script type="module-shim" src="ui-package/ui-api@1.13.5/setup-e6de0e31898e48ed32f9cc0fe784f186-20485014e9f795b05e8aa23662e19ed4-eu0b.js"></script>
+<script type="module-shim" src="ui-package/sydle-ui-icons@1.0.0/sydle-ui-icons.esm-337105670d3b75121f55a90b2b16d3ce-20485014e9f795b05e8aa23662e19ed4-eu0b.js"></script>
+<script type="module-shim" src="ui-package/sydle-ui@1.1.3/build/sydle-ui.esm-c65948fd366e8e15bf9cb32b305a9456-20485014e9f795b05e8aa23662e19ed4-eu0b.js"></script>
+<link rel="stylesheet" href="ui-package/sydle-ui@1.1.3/build/sydle-ui-c65948fd366e8e15bf9cb32b305a9456-20485014e9f795b05e8aa23662e19ed4-eu0b.css">
+<script type="module-shim" src="ui-package/sydle-ui-blog@2.1.0/build/sydle-ui-blog.esm-73b01dc3e6d7cea07c5875929bea05b9-20485014e9f795b05e8aa23662e19ed4-eu0b.js"></script>
+<script type="module-shim" src="ui-package/ui-app-components@1.10.0/build/ui-app-components.esm-87880c332f5cb2ee38e755f5fc459d9e-20485014e9f795b05e8aa23662e19ed4-eu0b.js"></script>
+<script type="module-shim" src="ui-package/sydle-ui-site@2.0.0/build/sydle-ui-site.esm-789df8348bef6c5590bd452afe568a52-20485014e9f795b05e8aa23662e19ed4-eu0b.js"></script>
+<script type="module-shim" src="ui-package/sydle-ui-site@2.0.0/build/sydle-ui-site-789df8348bef6c5590bd452afe568a52-20485014e9f795b05e8aa23662e19ed4-eu0b.css"></script>
+ <link rel="shortcut icon" href="favicon.png?size=16" type="image/png" media="(prefers-color-scheme: light)"> <link rel="shortcut icon" href="favicon.png?theme=dark&amp;size=16" type="image/png" media="(prefers-color-scheme: dark)"> <link rel="apple-touch-icon" href="favicon.png"> <link rel="apple-touch-icon" sizes="57x57" href="favicon.png?size=57"> <link rel="apple-touch-icon" sizes="72x72" href="favicon.png?size=72"> <link rel="apple-touch-icon" sizes="76x76" href="favicon.png?size=76"> <link rel="apple-touch-icon" sizes="114x114" href="favicon.png?size=114"> <link rel="apple-touch-icon" sizes="120x120" href="favicon.png?size=120"> <link rel="apple-touch-icon" sizes="144x144" href="favicon.png?size=144"> <link rel="apple-touch-icon" sizes="152x152" href="favicon.png?size=152"> <link rel="apple-touch-icon" sizes="180x180" href="favicon.png?size=180"> <script type="module-shim" src="build/ui-app.esm-20485014e9f795b05e8aa23662e19ed4-eu0b.js"></script> <link async rel="preload" href="https://sydle-ui.sydle.one/api/1/main/_ecm/_defaultFile/www/es-module-shims.js/" /><link rel="preconnect" href="https://sydle-ui.sydle.one" /><link rel="preload" href="/blog/assets/post/clean-code-602bef23da4d09680935509b/clean-code..jpg?w=720" as="image" media="(max-width: 768px)"><link rel="preload" href="/blog/assets/post/clean-code-602bef23da4d09680935509b/clean-code..jpg?w=1200" as="image" media="(min-width: 769px)"><script id="preloadPost"> window.preloadPost = {"head":{"OGTags":[{"name":"description","content":"Sabe criar um código limpo? Aprenda agora quais as boas práticas da programação e entenda tudo sobre o conceito de clean code."},{"property":"og:title","content":"Clean code: quais são as boas práticas de programação?"},{"property":"og:description","content":"Sabe criar um código limpo? Aprenda agora quais as boas práticas da programação e entenda tudo sobre o conceito de clean code."},{"name":"article-published_time","property":"article:published_time","content":null},{"name":"article-modified_time","property":"article:modified_time","content":"2024-09-10T17:39:10.573Z"},{"name":"publish_date","property":"og:publish_date","content":"2019-10-21T00:00:00-0600"},{"name":"published_time","property":"og:article:published_time","content":null},{"property":"og:type","content":"article"},{"property":"og:url","content":"https://www.sydle.com/br/blog/clean-code-602bef23da4d09680935509b"},{"property":"og:site_name","content":"Blog SYDLE"},{"property":"og:image","content":"https://www.sydle.com/blog/assets/post/clean-code-602bef23da4d09680935509b/clean-code..jpg?w=480"},{"property":"article:published_time","content":null},{"property":"article:modified_time","content":"2024-09-10T17:39:10.573Z"},{"property":"article:section","content":"Inovação e Tecnologia"},{"name":"twitter:card","content":"summary_large_image"},{"name":"author","content":"SYDLE"}],"contentTags":[{"name":"sy-blog-content-class","content":"Blog Post"},{"name":"sy-blog-content-cluster","content":"ti"},{"name":"sy-blog-content-level","content":1}]},"body":{"date":"10/09/2024","preview":null,"identifier":"clean-code","cluster":"ti","img":{"src":"/blog/assets/post/clean-code-602bef23da4d09680935509b/clean-code..jpg","name":"clean-code..jpg","dimensions":{"width":960,"height":640}},"author":{"photoURL":"/author/clean-code-602bef23da4d09680935509b/sydle.jpeg?f=jpeg","_classId":"591365fef5ca53284cd8d159","name":"SYDLE","description":"","photoId":"5d5301e35b78e52d9707a03c","_id":"5af1f92a62edb903d997a7ec","url":"sydle.com"},"description":"Sabe criar um código limpo? Aprenda agora quais as boas práticas da programação e entenda tudo sobre o conceito de clean code.","title":"Clean code: quais são as boas práticas de programação?","classification":"Blog Post","content":"<sy-text type=\"lead\">Tu te tornas eternamente responsável por aquilo que... programas. Ok, a frase de O Pequeno Príncipe não é bem assim, mas se você é programador, sabe o quanto é importante cuidar dos códigos que escreve. </sy-text><sy-text type=\"lead\">Por meio do <strong>clean code</strong>, ou “código limpo”, é possível programar bons códigos para facilitar a sua leitura e torná-lo claro, simples e escalável, a fim de que alcance os objetivos do cliente.</sy-text><sy-text type=\"lead\">É claro que isso nem sempre é simples, ainda mais em um mercado onde tudo muda o tempo todo e novas maneiras de escrever códigos aparecem a cada dia. </sy-text><sy-text type=\"lead\">Para te ajudar, hoje vamos falar sobre clean code. Quais são as boas práticas que você deve se atentar ao programar? Confira no nosso artigo!</sy-text><sy-text type=\"h2\" id=\"section-o-que-e-clean-code\">O que é clean code?</sy-text><sy-text type=\"lead\">Se você, como muitos desenvolvedores, têm o livro <a href=\"https://books.google.com.br/books?id=GXWkDwAAQBAJ&pg=PA6&dq=c%C3%B3digo+limpo&hl=en&sa=X&ved=2ahUKEwivzZL0_c3tAhXwErkGHVZSAlIQ6AEwAXoECAMQAg#v=onepage&q=c%C3%B3digo%20limpo&f=false\" target=\"_blank\">Código Limpo</a>, de Robert Cecil Martin (o Uncle Bob), na cabeceira, sabe que o conceito de “clean code” é amplo e muitos especialistas têm suas próprias definições e até discordam entre si.</sy-text><sy-text type=\"lead\">Grady Booch, Cientista-chefe de Engenharia de Software da IBM Research, por exemplo, é citado pelo autor por considerar que: </sy-text><blockquote>\n<sy-text type=\"lead\">“O código limpo é simples e direto. Código limpo parece uma prosa bem escrita. Código limpo nunca obscurece a intenção do designer, mas é completo de abstrações nítidas e linhas simples de controle.” </sy-text></blockquote>\n<sy-text type=\"lead\">Já Michael Feathers, autor de &quot;Working Effectively with Legacy Code&quot;, coloca a palavra “cuidado” como central para um código limpo.</sy-text><sy-text type=\"h3\" id=\"section-tecnica-para-facilitar-a-escrita-e-leitura-de-um-codigo\">Técnica para facilitar a escrita e leitura de um código</sy-text><sy-text type=\"lead\">Apesar das diferentes definições, é possível unir diferentes significados e dizer que clean code é aplicar determinadas técnicas para <strong>facilitar a escrita e leitura de um código</strong>. </sy-text><sy-text type=\"lead\">Isso porque um software ou um sistema nunca está totalmente concluído, ele sempre sofrerá atualizações e receberá novas funcionalidades, o que torna importante que ele seja o mais limpo possível.</sy-text><sy-text type=\"h2\" id=\"section-por-que-clean-code-e-importante\">Por que clean code é importante?</sy-text><sy-text type=\"lead\">É preciso entender que, ao produzir um software para um negócio, a própria empresa passará por mudanças. Os requisitos do negócio mudam, as necessidades do usuário mudam e, eventualmente, o código que você escreveu irá precisar evoluir. </sy-text><sy-text type=\"lead\">E outra pessoa precisará ler o seu código, entendê-lo e mudá-lo ou até corrigi-lo. Clean code pressupõe escrever códigos com alta legibilidade, o que leva a uma boa manutenibilidade. Seguindo o livro de Uncle Bob (tradução livre): </sy-text><sy-text type=\"lead\">“Se você é programador há mais de dois ou três anos, provavelmente ficou lento devido a um código confuso. O grau de desaceleração pode ser significativo. [...] Com o tempo, a bagunça se torna tão grande, profunda e alta que eles não conseguem limpá-la.”</sy-text><sy-text type=\"h2\" id=\"section-o-que-um-clean-code-deve-ser\">O que um clean code deve ser?</sy-text><sy-text type=\"lead\">Para que isso não aconteça, é importante seguir alguns princípios ao desenvolver sistemas. O clean code deve ser:</sy-text><sy-text type=\"lead\"><sy-blog-img max-width=\"960\" source=\"/blog/assets/post/clean-code-602bef23da4d09680935509b/clean-code.webp\" alt=\"Características de um Clean Code\" title=\"Imagem intitulada &#39;Características de um Clean Code&#39; com uma lista de seis itens dispostos em um círculo ao redor do título central. Os itens são: Eficiente, Elegante e diferenciado, Cuidadoso e detalhado, Não necessitar de comentários, Simples e direto, Seco (código DRY). A marca SYDLE está posicionada na parte inferior da imagem.\" aspect=\"1.5118110236220472\"></sy-blog-img></sy-text><ul>\n<li><sy-text type=\"body\"><strong>Simples e direto</strong>: seguindo o princípio de KISS (Keep It Simple Stupid), o código bem escrito deve ter o mínimo de complexidade possível, para que possa ser facilmente depurado e compreendido. </sy-text></li><li><sy-text type=\"body\"><strong>Seco</strong>: o código DRY “Don’t Repeat It” – conceito trazido por Andy Hunt, um dos autores do Manifesto Ágil -, é aquele sem ambiguidade, ou seja, se você já o inseriu em algum lugar no código-fonte, ele não deve ser implementado novamente.</sy-text></li><li><sy-text type=\"body\"><strong>Eficiente</strong>: um código é programado para atender a algum objetivo específico, então procure se certificar que ele funcionará da forma que foi proposto.</sy-text></li><li><sy-text type=\"body\"><strong>Elegante</strong>: Bjarne Stroustrup, inventor do C++, diz que gosta dos seus códigos elegantes e que, quando você o lê, deve se sentir feliz. A ideia da elegância é tornar o código diferente dos demais.</sy-text></li><li><sy-text type=\"body\"><strong>Atenção aos detalhes</strong>: o programador deve sempre criar um código de forma cuidadosa, já que um código mal escrito desde o início impactará em sua manutenção, trazendo grandes prejuízos e lentidão para entendê-lo.</sy-text></li><li><sy-text type=\"body\"><strong>Atenção aos comentários</strong>: comente o mínimo possível em seu código. O código já deve ser claro o suficiente para não necessitar de comentários. Caso necessite, tente comentar o mínimo possível.</sy-text></li></ul>\n<sy-text type=\"h2\" id=\"section-clean-code-testes-de-programacao\">Clean code: Testes de programação</sy-text><sy-text type=\"lead\">Diante dessas regras, é sempre importante se lembrar que o código escrito por você passará, provavelmente, por manutenções e refatoração. O código só será considerado limpo se ele passar por testes.</sy-text><sy-text type=\"lead\">Ao produzir um software, portanto, é preciso garantir que cada linha do código seja validada, para que se mantenha em funcionamento. </sy-text><sy-text type=\"lead\">É interessante utilizar a metodologia de Desenvolvimento Orientado a Testes (TDD), e realizar testes de Integridade, Instalação, Configuração, Usabilidade, Segurança, Integração e outros.</sy-text><sy-text type=\"h2\" id=\"section-como-escrever-um-bom-codigo\">Como escrever um bom código?</sy-text><sy-text type=\"lead\">Diante disso, quais as práticas que devem ser seguidas para que o clean code seja possível?</sy-text><ul>\n<li><sy-text type=\"body\"><strong>Defina bons nomes</strong>: o nome é essencial para o código. Deve ser direto e representar bem o que ele significa, mesmo que isso pressuponha um nome extenso.</sy-text></li><li><sy-text type=\"body\"><strong>Nomes de Classes</strong>: evite palavras conflitantes com os componentes da linguagem e use substantivos em vez de verbos.</sy-text></li><li><sy-text type=\"body\"><strong>Nomes de Métodos</strong>: aqui, sim, deve conter verbos e exprimir a intenção do desenvolvedor, como “ExcluirPagina”.</sy-text></li><li><sy-text type=\"body\"><strong>TDD</strong>: como falamos, é preciso testar tudo, o tempo todo.</sy-text></li><li><sy-text type=\"body\"><strong>Notação húngara não agrega valor</strong>: atualmente, entende-se que a notação húngara (uso do tipo da variável logo após o seu nome) polui a leitura e existem novas linguagens de programação mais adequadas.</sy-text></li><li><sy-text type=\"body\"><strong>Bons nomes dispensam comentários</strong>: substitua-os por nomes claros, para que não haja mais confusão.</sy-text></li><li><sy-text type=\"body\"><strong>Crie tratamento de erros</strong>: caso haja alguma falha, é preciso garantir formas de tratá-la.</sy-text></li><li><sy-text type=\"body\"><strong>Formatação</strong>: cuide da formatação e da indentação do código para melhorar sua legibilidade.</sy-text></li><li><sy-text type=\"body\"><strong>Pacote ou package</strong>: categorize os códigos em pacotes para que fiquem mais organizados e elegantes.</sy-text></li></ul>\n<sy-text type=\"h2\" id=\"section-entenda-mais-sobre-saas-software-as-a-service\">Entenda mais sobre SaaS - Software as a Service</sy-text><sy-text type=\"lead\">Desenvolver com foco em clean code faz com que a programação seja mais ágil e gere menos prejuízo e atraso ao negócio. </sy-text><sy-text type=\"lead\">Ao codificar dessa maneira, você facilita a automação de processos nas empresas, tornando a leitura e usabilidade por parte do cliente mais simples.</sy-text><sy-text type=\"lead\">Esse conceito é fundamental para negócios de TI baseados em Software as a Service (SaaS) ou “software como serviço” que tenham um modelo de receita recorrente, ou seja, por assinatura mensal ou anual, por exemplo. </sy-text><sy-text type=\"lead\">Isso porque o sistema ficará em nuvem e permitirá ao usuário mais flexibilidade para decidir as funcionalidades que o sistema deve conter. A empresa de TI dá todo o suporte que a empresa necessita, podendo testar e modificar o sistema com mais facilidade.\nQuer entender melhor? Veja agora <a href=\"/br/blog/software-as-a-service-60228fe96d79af5e998f9bc5\" class=\"60228fe96d79af5e998f9bc5\"><strong>o que é SaaS e quais os benefícios para o seu negócio</strong></a>!</sy-text>","sections":[{"level":2,"name":"O que é clean code?"},{"level":3,"name":"Técnica para facilitar a escrita e leitura de um código"},{"level":2,"name":"Por que clean code é importante?"},{"level":2,"name":"O que um clean code deve ser?"},{"level":2,"name":"Clean code: Testes de programação"},{"level":2,"name":"Como escrever um bom código?"},{"level":2,"name":"Entenda mais sobre SaaS - Software as a Service"}],"tags":[{"identifier":"ti","name":"TI","_id":"66225ea5ad2a7b1852238205","url":"/br/blog/t/ti-66225ea5ad2a7b1852238205"}],"urls":[{"hreflang":"pt-BR","rel":"alternate","href":"https://www.sydle.com/br/blog/clean-code-602bef23da4d09680935509b"},{"hreflang":"es","rel":"alternate","href":"https://www.sydle.com/es/blog/clean-code-602bef23da4d09680935509b"},{"hreflang":"en","rel":"alternate","href":"https://www.sydle.com/blog/clean-code-what-are-the-best-practices-for-programming-602bef23da4d09680935509b"},{"rel":"canonical","href":"https://www.sydle.com/br/blog/clean-code-602bef23da4d09680935509b"},{"hreflang":"x-default","rel":"alternate","href":"https://www.sydle.com/blog/clean-code-what-are-the-best-practices-for-programming-602bef23da4d09680935509b"}],"funnelPhase":1,"relatedPosts":[{"date":"12/01/2024","identifier":"engenheiro-de-software","img":{"src":"/blog/assets/post/engenheiro-de-software-5fd3c53d725a6426833ae0eb/engenheiro-de-software.jpg","name":"engenheiro-de-software.jpg","dimensions":{"width":960,"height":640}},"link":"/br/blog/engenheiro-de-software-5fd3c53d725a6426833ae0eb","_id":"5fd3c53d725a6426833ae0eb","title":"Engenheiro de Software: o que faz, formação e perspectivas de mercado","category":"Inovação e Tecnologia"}],"_id":"602bef23da4d09680935509b","category":{"name":"Inovação e Tecnologia","link":"/br/blog/c/inovacao-tecnologia-5eab30d1c7fa677196ce06cb","_id":"5eab30d1c7fa677196ce06cb"},"lang":"pt","isRichContent":false}} </script><script type="application/ld+json">{"datePublished":"2021-02-16T16:13:23.782Z","image":["https://www.sydle.com/blog/assets/post/clean-code-602bef23da4d09680935509b/clean-code..jpg"],"@type":"Article","author":{"@type":"Organization","name":"SYDLE","url":"https://www.sydle.com/br/blog","sameAs":["https://www.facebook.com/mundosydle/","https://www.instagram.com/mundosydle/","https://www.linkedin.com/company/sydle/","https://maps.app.goo.gl/wTm64QdUnmM92gik6"]},"publisher":{"@type":"Organization","name":"SYDLE","logo":{"@type":"ImageObject","url":"https://www.sydle.com/blog/logo"},"url":"https://www.sydle.com/br/blog"},"description":"Sabe criar um código limpo? Aprenda agora quais as boas práticas da programação e entenda tudo sobre o conceito de clean code.","dateModified":"2024-09-10T17:39:10.627Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.sydle.com/br/blog/clean-code-602bef23da4d09680935509b"},"@context":"https://schema.org","headline":"Clean code: quais são as boas práticas de programação?","articleSection":["Inovação e Tecnologia","TI"]}</script><link href="https://www.sydle.com/br/blog/clean-code-602bef23da4d09680935509b" rel="alternate" hreflang="pt-BR" />
+<link href="https://www.sydle.com/es/blog/clean-code-602bef23da4d09680935509b" rel="alternate" hreflang="es" />
+<link href="https://www.sydle.com/blog/clean-code-what-are-the-best-practices-for-programming-602bef23da4d09680935509b" rel="alternate" hreflang="en" />
+<link rel="canonical" href="https://www.sydle.com/br/blog/clean-code-602bef23da4d09680935509b" />
+<link rel="alternate" href="https://www.sydle.com/blog/clean-code-what-are-the-best-practices-for-programming-602bef23da4d09680935509b" hreflang="x-default" /><meta name="description" content="Sabe criar um código limpo? Aprenda agora quais as boas práticas da programação e entenda tudo sobre o conceito de clean code." />
+<meta property="og:title" content="Clean code: quais são as boas práticas de programação?" />
+<meta property="og:description" content="Sabe criar um código limpo? Aprenda agora quais as boas práticas da programação e entenda tudo sobre o conceito de clean code." />
+<meta name="article-published_time" property="article:published_time" content="undefined" />
+<meta name="article-modified_time" property="article:modified_time" content="Tue Sep 10 2024 14:39:10 GMT-0300 (BRT)" />
+<meta name="publish_date" property="og:publish_date" content="2019-10-21T00:00:00-0600" />
+<meta name="published_time" property="og:article:published_time" content="undefined" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.sydle.com/br/blog/clean-code-602bef23da4d09680935509b" />
+<meta property="og:site_name" content="Blog SYDLE" />
+<meta property="og:image" content="https://www.sydle.com/blog/assets/post/clean-code-602bef23da4d09680935509b/clean-code..jpg?w=480" />
+<meta property="article:published_time" content="undefined" />
+<meta property="article:modified_time" content="Tue Sep 10 2024 14:39:10 GMT-0300 (BRT)" />
+<meta property="article:section" content="Inovação e Tecnologia" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="author" content="SYDLE" />
+<meta name="sy-blog-content-class" content="Blog Post" />
+<meta name="sy-blog-content-cluster" content="ti" />
+<meta name="sy-blog-content-level" content="1" /><!--head-end/--> </head> <body style="margin: 0;"> <!--body-start/--> <!-- Google Tag Manager (noscript) --><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WKR2TM"height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><!-- End Google Tag Manager (noscript) --> <sy-app-root></sy-app-root> <!--body-end/--> </body></html>
